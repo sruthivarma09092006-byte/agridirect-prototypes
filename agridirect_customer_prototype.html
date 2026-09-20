@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgriDirect — Customer Prototype</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;background:#f6f8f4;color:#172116}
+.app{max-width:1200px;margin:auto;min-height:100vh}.top{background:#16351f;color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:24px;font-weight:800}.badge{background:#2f8f46;padding:7px 12px;border-radius:20px;font-size:12px}
+nav{display:flex;gap:8px;overflow:auto;padding:12px 20px;background:#fff;border-bottom:1px solid #ddd}nav button{border:0;background:#eef3ec;padding:10px 14px;border-radius:10px;white-space:nowrap;cursor:pointer}nav button.active{background:#236b32;color:#fff}
+main{padding:24px}.page{display:none}.page.active{display:block}.hero{background:linear-gradient(135deg,#e6f3df,#fff);padding:28px;border-radius:20px;margin-bottom:20px}.hero h1{margin:0 0 8px;font-size:32px}.hero p{margin:0;color:#536052}
+.search{display:flex;gap:10px;margin:18px 0}.search input{flex:1;padding:14px;border:1px solid #ccd5c9;border-radius:12px;font:inherit}.btn{border:0;border-radius:10px;padding:12px 16px;background:#236b32;color:white;font-weight:700;cursor:pointer}.btn.alt{background:#e9f0e7;color:#235c2c}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.product{background:#fff;border:1px solid #e0e5dd;border-radius:18px;overflow:hidden;box-shadow:0 4px 14px #00000008}.photo{height:145px;display:flex;align-items:center;justify-content:center;font-size:58px;background:#edf5e9}.body{padding:16px}.price{font-size:24px;font-weight:800;color:#236b32}.muted{color:#667064;font-size:13px}.pill{display:inline-block;padding:5px 9px;border-radius:20px;background:#e0f0e2;color:#22612d;font-size:12px;font-weight:700;margin:4px 2px}.section{margin:24px 0 12px}.section h2{margin:0 0 12px}.two{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.card{background:#fff;border:1px solid #e0e5dd;border-radius:16px;padding:18px}.row{display:flex;align-items:center;justify-content:space-between;padding:13px;background:#f7f9f5;border-radius:12px;margin-bottom:10px}.timeline{border-left:3px solid #72a878;margin:10px 0 10px 10px;padding-left:18px}.timeline div{margin:18px 0}.big{font-size:30px;font-weight:800}.toast{position:fixed;right:20px;bottom:20px;background:#172116;color:#fff;padding:14px 18px;border-radius:12px;display:none;z-index:5}
+@media(max-width:800px){.grid,.two{grid-template-columns:1fr 1fr}main{padding:15px}.hero h1{font-size:25px}}@media(max-width:520px){.grid,.two{grid-template-columns:1fr}.search{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="logo">🌾 AgriDirect</div><div class="badge">CUSTOMER MODE</div></header>
+<nav>
+<button class="active" onclick="show('home',this)">Home</button>
+<button onclick="show('market',this)">Marketplace</button>
+<button onclick="show('orders',this)">My Orders</button>
+<button onclick="show('track',this)">Track Delivery</button>
+<button onclick="show('impact',this)">My Impact</button>
+</nav>
+<main>
+<section id="home" class="page active">
+<div class="hero"><h1>Fresh from Indian farms 🥬</h1><p>Buy directly from verified farmers with transparent pricing and traceable delivery.</p>
+<div class="search"><input placeholder="Search tomatoes, onions, paddy..." id="search"><button class="btn" onclick="show('market',document.querySelectorAll('nav button')[1])">Shop now</button></div></div>
+<div class="section"><h2>Popular today</h2></div>
+<div class="grid">
+<div class="product"><div class="photo">🍅</div><div class="body"><h3>Farm Fresh Tomatoes</h3><span class="pill">Direct from farmer</span><p class="muted">Verified farm · Karnataka</p><div class="price">₹32/kg</div><button class="btn" onclick="add('Tomatoes')">Add to cart</button></div></div>
+<div class="product"><div class="photo">🧅</div><div class="body"><h3>Red Onions</h3><span class="pill">Traceable</span><p class="muted">Verified farm · Maharashtra</p><div class="price">₹38/kg</div><button class="btn" onclick="add('Onions')">Add to cart</button></div></div>
+<div class="product"><div class="photo">🥔</div><div class="body"><h3>Fresh Potatoes</h3><span class="pill">Bulk available</span><p class="muted">Verified farm · Karnataka</p><div class="price">₹29/kg</div><button class="btn" onclick="add('Potatoes')">Add to cart</button></div></div>
+</div>
+</section>
+
+<section id="market" class="page">
+<div class="hero"><h1>🛒 Farmer-direct marketplace</h1><p>Compare produce, farmer location, quantity and transparent pricing before you buy.</p></div>
+<div class="grid">
+<div class="product"><div class="photo">🍅</div><div class="body"><h3>Tomato — 500 kg lot</h3><p class="muted">Farmer: Ramesh · Karnataka</p><span class="pill">Verified</span><span class="pill">AI quality check</span><p><b>₹32/kg</b> · Pickup tomorrow</p><button class="btn" onclick="add('500kg Tomato lot')">Buy 10 kg</button></div></div>
+<div class="product"><div class="photo">🧅</div><div class="body"><h3>Onion — 1 tonne lot</h3><p class="muted">Farmer group · Maharashtra</p><span class="pill">Pooled harvest</span><p><b>₹38/kg</b> · Delivery in 2 days</p><button class="btn" onclick="add('Onion lot')">Buy 10 kg</button></div></div>
+<div class="product"><div class="photo">🌾</div><div class="body"><h3>Paddy — bulk</h3><p class="muted">Farmer collective · Karnataka</p><span class="pill">Bulk pricing</span><p><b>₹28/kg</b> · Delivery in 3 days</p><button class="btn" onclick="add('Paddy')">Request quote</button></div></div>
+</div>
+</section>
+
+<section id="orders" class="page">
+<div class="hero"><h1>My orders</h1><p>Every order has a transparent price and farmer connection.</p></div>
+<div class="card">
+<div class="row"><div><b>Order #AD1024</b><br><span class="muted">10 kg tomatoes · Farmer Ramesh</span></div><span class="pill">Out for delivery</span></div>
+<div class="row"><div><b>Order #AD1017</b><br><span class="muted">5 kg onions · Farmer group</span></div><span class="pill">Delivered</span></div>
+<button class="btn" onclick="show('track',document.querySelectorAll('nav button')[3])">Track latest order</button>
+</div>
+</section>
+
+<section id="track" class="page">
+<div class="hero"><h1>📍 Track your delivery</h1><p>Know exactly where your produce is coming from and where it is now.</p></div>
+<div class="two">
+<div class="card"><h2>Order #AD1024</h2><div class="timeline">
+<div>🌱 <b>Farm</b><br><span class="muted">Harvest collected · 8:20 AM</span></div>
+<div>🚚 <b>Collection hub</b><br><span class="muted">Sorted & packed · 10:10 AM</span></div>
+<div>🏠 <b>Your location</b><br><span class="muted">ETA 12:30 PM</span></div>
+</div></div>
+<div class="card"><div class="muted">Estimated arrival</div><div class="big">12:30 PM</div><p>Driver: Suresh</p><p>Vehicle: KA-01-AB-2451</p><span class="pill">Live tracking</span></div>
+</div>
+</section>
+
+<section id="impact" class="page">
+<div class="hero"><h1>🌱 My impact</h1><p>Your purchases support direct farm-to-market trade.</p></div>
+<div class="grid">
+<div class="card"><div class="muted">Orders from farmers</div><div class="big">24</div></div>
+<div class="card"><div class="muted">Produce purchased</div><div class="big">86 kg</div></div>
+<div class="card"><div class="muted">Direct farmer value</div><div class="big">₹3,420</div></div>
+</div>
+<div class="section"><div class="card"><h3>Transparent price breakdown</h3><div class="row"><span>Farmer receives</span><b>₹280</b></div><div class="row"><span>Logistics</span><b>₹35</b></div><div class="row"><span>Platform fee</span><b>₹10</b></div><div class="row"><span>Your total</span><b>₹325</b></div></div></div>
+</section>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+function show(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
+function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}
+function add(item){toast(item+' added to cart ✓')}
+</script>
+</body></html>
